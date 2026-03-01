@@ -6,6 +6,11 @@ variable "project" {
 
 variable "environment" {
     type = string
+    validation {
+        condition = contains (["dev","qa","uat","prod"],var.environment)
+        error_message = " Environments should be one of dev,qa,uat or prod"
+
+    }
 }
   
 variable "vpc_cidr" {
@@ -34,5 +39,5 @@ variable "public_subnet_cidrs" {
 variable "public_subnet_tags" {
     default = {}
     type = map
-    
+
 }
