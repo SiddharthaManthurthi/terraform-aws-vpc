@@ -63,3 +63,16 @@ resource "aws_subnet" "Database" {
         var.database_subnet_tags
     )
 }
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+        local.common_tags,
+        #roboshop-dev-database-us-east-1a
+        {
+            Name = "${var.project}-${var.environment}-database-${local.az_names[count.index]}"
+        },
+        var.database_subnet_tags
+    )
+}
